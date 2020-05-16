@@ -3,6 +3,8 @@ package com.sohilladhani.alba;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 public class Game extends Canvas implements Runnable {
     public static int width = 300;
@@ -12,6 +14,9 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean isRunning = false;
     private JFrame jFrame;
+    /* BufferedImage - Image with a buffer */
+    private BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    private int[] pixels = ((DataBufferInt) bufferedImage.getRaster().getDataBuffer()).getData();
 
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale);
