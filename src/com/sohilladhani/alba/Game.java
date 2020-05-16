@@ -2,6 +2,7 @@ package com.sohilladhani.alba;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
     public static int width = 300;
@@ -36,6 +37,26 @@ public class Game extends Canvas implements Runnable {
     @Override
     public void run() {
         while (isRunning) {
+            update();
+            render();
+        }
+    }
+
+    /* Handles logic of the game, like keyboard input, etc.
+     *  Also called 'tick', it is fixed throughout the game and does not
+     *  depend on the PC configurations. For e.g. updating at 60 ticks per second */
+    public void update() {
+
+    }
+
+    /* Handles rendering of the images on the screen.
+     *  It depends on the PC configurations. Remember FPS of games? It is handled by this
+     *  method. */
+    public void render() {
+        BufferStrategy bufferStrategy = getBufferStrategy();
+        if (bufferStrategy==null) {
+            createBufferStrategy(3);
+            return;
         }
     }
 
