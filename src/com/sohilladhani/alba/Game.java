@@ -1,5 +1,7 @@
 package com.sohilladhani.alba;
 
+import com.sohilladhani.alba.graphics.Screen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -13,6 +15,7 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private boolean isRunning = false;
+    private Screen screen;
     private JFrame jFrame;
     /* BufferedImage - Image with a buffer */
     private BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -21,6 +24,7 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale);
         setPreferredSize(size);
+        screen = new Screen(width, height);
         jFrame = new JFrame();
     }
 
