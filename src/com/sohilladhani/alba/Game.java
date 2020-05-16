@@ -58,6 +58,13 @@ public class Game extends Canvas implements Runnable {
             createBufferStrategy(3);
             return;
         }
+        Graphics graphics = bufferStrategy.getDrawGraphics();
+        /* Do Graphics stuff i.e. what to display on screen,
+           till graphics.dispose() */
+        graphics.setColor(new Color(46, 182, 125));
+        graphics.fillRect(0, 0, getWidth(), getHeight());
+        graphics.dispose(); // release system resources. remove graphics at the end of the frame
+        bufferStrategy.show();  // make next buffer visible
     }
 
     public static void main(String[] args) {
