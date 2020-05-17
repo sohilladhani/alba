@@ -10,10 +10,12 @@ public class Screen {
     public int width;
     public int height;
     public int[] pixels;
+    public int xOffset, yOffset;
     private final int MAP_SIZE = 64;
-    private final int MAP_MASK = 63;
+    private final int MAP_MASK = MAP_SIZE - 1;
     public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
     private Random random = new Random();
+
 
     public Screen(int width, int height) {
         this.width = width;
@@ -28,10 +30,10 @@ public class Screen {
         int yp = 0;
         int xp = 0;
         for (int y = 0; y < height; y++) {
-            yp = y - yOffset;
+            yp = y + yOffset;
             if (yp < 0 || yp >= height) continue;
             for (int x = 0; x < width; x++) {
-                xp = x - xOffset;
+                xp = x + xOffset;
                 if (xp < 0 || xp >= width) continue;
                 pixels[xp + yp * width] =
                         Sprite.grass.pixels[(x & Sprite.grass.SIZE_MASK) +
@@ -41,6 +43,8 @@ public class Screen {
     }
 
     public void renderTile(int xp, int yp, Tile tile) {
+        xp -= xOffset;
+        yp =- yOffset;
         for (int y = 0; y < tile.sprite.SIZE; y++) {
             int ya = y + yp;
             for (int x = 0; x < tile.sprite.SIZE; x++) {
@@ -49,6 +53,11 @@ public class Screen {
                 pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
             }
         }
+    }
+
+    public void setOffSet(int xOffset, int yOffset) {
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
     }
 
     public void clear() {
