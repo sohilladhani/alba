@@ -68,7 +68,10 @@ public class Game extends Canvas implements Runnable {
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                averageFPS = (frames + averageFPS) >> 1;
+                if(averageFPS != 0) averageFPS = (frames + averageFPS) >> 1;
+                else averageFPS = frames;
+                if(averageUPS != 0) averageUPS = (updates + averageUPS) >> 1;
+                else averageUPS = updates;
                 averageUPS = (updates + averageUPS) >> 1;
                 titleString = updates + " ups " + frames + " fps " + "average: " + averageFPS + " fps " +
                         " average: " + averageUPS + " ups";
