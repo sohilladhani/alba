@@ -3,8 +3,8 @@ package com.sohilladhani.alba.level;
 import com.sohilladhani.alba.graphics.Screen;
 
 public class Level {
-    private int width, height;
-    private int[] tiles;
+    protected int width, height;
+    protected int[] tiles;  // like IDs for tile. e.g. 0 = grass, 1 = stone, etc
 
     public Level(int width, int height) {
         this.width = width;
@@ -22,7 +22,7 @@ public class Level {
 
     }
 
-    private void generateLevel() {
+    protected void generateLevel() {
 
     }
 
