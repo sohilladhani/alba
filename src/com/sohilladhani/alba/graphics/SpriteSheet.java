@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class SpriteSheet {
     private String path;
-    private final int SIZE; // size of sprite sheet (width * height)
+    public final int SIZE; // size of sprite sheet (width * height)
     public int[] pixels;
 
     public SpriteSheet(String path, int size) {
