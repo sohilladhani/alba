@@ -1,15 +1,17 @@
 package com.sohilladhani.alba.graphics;
 
 public class Sprite {
-    private final int SIZE;
+    public final int SIZE;
+    public final int SIZE_MASK;
     private int x, y;
     public int[] pixels;
     private SpriteSheet spriteSheet;
 
-    public static Sprite grass = new Sprite(16, 0, 0, null);
+    public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
 
     public Sprite(int size, int x, int y, SpriteSheet spriteSheet) {
         SIZE = size;
+        SIZE_MASK = SIZE - 1;
         this.pixels = new int[SIZE * SIZE];
         this.x = x * size;
         this.y = y * size;

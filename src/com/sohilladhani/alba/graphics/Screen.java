@@ -28,7 +28,9 @@ public class Screen {
             tileIndex = (((y + yOffset) >> 4) & MAP_MASK) << 6;
             for (int x = 0; x < width; x++) {
                 /* Some random value assigning to pixels */
-                pixels[(x + y * width) % (width * height)] = tiles[(((x + xOffset) >> 4) & MAP_MASK) + tileIndex];
+                pixels[(x + y * width) % (width * height)] =
+                        Sprite.grass.pixels[((x + xOffset) & Sprite.grass.SIZE_MASK) +
+                                ((y + yOffset) & Sprite.grass.SIZE_MASK) * Sprite.grass.SIZE];
             }
         }
     }

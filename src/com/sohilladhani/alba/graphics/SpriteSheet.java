@@ -9,10 +9,13 @@ public class SpriteSheet {
     public final int SIZE; // size of sprite sheet (width * height)
     public int[] pixels;
 
+    public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png", 256);
+
     public SpriteSheet(String path, int size) {
         this.path = path;
         SIZE = size;
         this.pixels = new int[SIZE * SIZE];
+        load();
     }
 
     private void load() {
