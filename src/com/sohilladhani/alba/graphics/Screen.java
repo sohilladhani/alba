@@ -1,5 +1,6 @@
 package com.sohilladhani.alba.graphics;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /* Screen class for rendering the pixels with colors we specify */
@@ -25,15 +26,13 @@ public class Screen {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 /* Some random value assigning to pixels */
-                pixels[(xtime + ytime * width) % (width * height)] = 0x4285F4;
                 pixels[(ytime + xtime * width) % (width * height)] = 0xF4B400;
+                pixels[(xtime + ytime * width) % (width * height)] = 0x4285F4;
             }
         }
     }
 
     public void clear() {
-        for (int i = 0; i < pixels.length; i++) {
-            pixels[i] = 0;
-        }
+        Arrays.fill(pixels, 0);
     }
 }

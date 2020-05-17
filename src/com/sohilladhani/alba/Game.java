@@ -12,6 +12,7 @@ public class Game extends Canvas implements Runnable {
     public static int width = 300;
     public static int height = width / 16 * 9;
     public static int scale = 3;
+    public static String title = "The Legend of Alba";
 
     private Thread thread;
     private boolean isRunning = false;
@@ -46,23 +47,36 @@ public class Game extends Canvas implements Runnable {
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        final double ns = 1_000_000_000.0 / 60.0;
+        long timer = System.currentTimeMillis();
+        final double ns = 1_000_000_000.0 / 60.0; // Update 60 times per second
         double delta = 0;
-        boolean c = false;
+        int frames = 0; // how many frames are rendered per second
+        int updates = 0; // how may times update() gets called per second
+        int averageFPS = 0;
+        int averageUPS = 0;
+        String titleString = "";
         while (isRunning) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
-            if (c) {
-                System.out.println("Time taken: " + (now - lastTime));
-                System.exit(0);
-            }
             lastTime = now;
             while (delta >= 1) {
                 update();
+                updates++;
                 delta--;
             }
             render();
-            c = true;
+            frames++;
+            if (System.currentTimeMillis() - timer > 1000) {
+                timer += 1000;
+                averageFPS = (frames + averageFPS) >> 1;
+                averageUPS = (updates + averageUPS) >> 1;
+                titleString = updates + " ups " + frames + " fps " + "average: " + averageFPS + " fps " +
+                        " average: " + averageUPS + " ups";
+                System.out.println(titleString);
+                jFrame.setTitle(title + " | " + titleString);
+                frames = 0;
+                updates = 0;
+            }
         }
         stop();
     }
@@ -101,7 +115,7 @@ public class Game extends Canvas implements Runnable {
     public static void main(String[] args) {
         Game game = new Game();
         game.jFrame.setResizable(false);
-        game.jFrame.setTitle("The Legend of Alba");
+        game.jFrame.setTitle(Game.title);
         game.jFrame.add(game);
         game.jFrame.pack();
         game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
