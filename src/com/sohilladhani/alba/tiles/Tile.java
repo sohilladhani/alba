@@ -3,7 +3,7 @@ package com.sohilladhani.alba.tiles;
 import com.sohilladhani.alba.graphics.Screen;
 import com.sohilladhani.alba.graphics.Sprite;
 
-public class Tile {
+public abstract class Tile {
     public int x, y;
     public Sprite sprite;
 
