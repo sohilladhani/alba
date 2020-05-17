@@ -8,7 +8,9 @@ public class Screen {
     private int width;
     private int height;
     public int[] pixels;
-    public int[] tiles = new int[64 << 6];
+    private final int MAP_SIZE = 64;
+    private final int MAP_MASK = 63;
+    public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
     private Random random = new Random();
     private int tileIndex = 0;
 
@@ -16,17 +18,17 @@ public class Screen {
         this.width = width;
         this.height = height;
         pixels = new int[width * height];
-        for(int i = 0; i < (64 << 6); i++) {
+        for(int i = 0; i < MAP_SIZE * MAP_SIZE; i++) {
             tiles[i] = random.nextInt(0xFFFFFF);
         }
     }
 
-    public void render() {
+    public void render(int xOffset, int yOffset) {
         for (int y = 0; y < height; y++) {
-            tileIndex = (y >> 4) << 6;
+            tileIndex = (((y + yOffset) >> 4) & MAP_MASK) << 6;
             for (int x = 0; x < width; x++) {
                 /* Some random value assigning to pixels */
-                pixels[(x + y * width) % (width * height)] = tiles[(x >> 4) + tileIndex];
+                pixels[(x + y * width) % (width * height)] = tiles[(((x + xOffset) >> 4) & MAP_MASK) + tileIndex];
             }
         }
     }

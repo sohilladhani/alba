@@ -21,6 +21,8 @@ public class Game extends Canvas implements Runnable {
     /* BufferedImage - Image with a buffer */
     private BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) bufferedImage.getRaster().getDataBuffer()).getData();
+    int xOffset = 0;
+    int yOffset = 0;
 
     public Game() {
         Dimension size = new Dimension(width * scale, height * scale);
@@ -85,7 +87,7 @@ public class Game extends Canvas implements Runnable {
      *  Also called 'tick', it is fixed throughout the game and does not
      *  depend on the PC configurations. For e.g. updating at 60 ticks per second */
     public void update() {
-
+        xOffset++;
     }
 
     /* Handles rendering of the images on the screen.
@@ -99,7 +101,7 @@ public class Game extends Canvas implements Runnable {
         }
 
         screen.clear();
-        screen.render();
+        screen.render(xOffset, yOffset);
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
         }
