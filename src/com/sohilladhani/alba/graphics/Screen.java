@@ -7,8 +7,8 @@ import java.util.Random;
 
 /* Screen class for rendering the pixels with colors we specify */
 public class Screen {
-    private int width;
-    private int height;
+    public int width;
+    public int height;
     public int[] pixels;
     private final int MAP_SIZE = 64;
     private final int MAP_MASK = 63;
