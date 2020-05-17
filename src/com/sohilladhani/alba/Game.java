@@ -1,6 +1,7 @@
 package com.sohilladhani.alba;
 
 import com.sohilladhani.alba.graphics.Screen;
+import com.sohilladhani.alba.input.Keyboard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ public class Game extends Canvas implements Runnable {
     private boolean isRunning = false;
     private Screen screen;
     private JFrame jFrame;
+    private Keyboard keyBoard;
     /* BufferedImage - Image with a buffer */
     private BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt) bufferedImage.getRaster().getDataBuffer()).getData();
@@ -31,6 +33,8 @@ public class Game extends Canvas implements Runnable {
         setPreferredSize(size);
         screen = new Screen(width, height);
         jFrame = new JFrame();
+        keyBoard = new Keyboard();
+        addKeyListener(keyBoard);
     }
 
     public synchronized void start() {
@@ -72,8 +76,8 @@ public class Game extends Canvas implements Runnable {
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                averageFPS = (averageFPS == 0)? frames: (frames + averageFPS) >> 1;
-                averageUPS = (averageUPS == 0)? updates: (updates + averageUPS) >> 1;
+                averageFPS = (averageFPS==0) ? frames:(frames + averageFPS) >> 1;
+                averageUPS = (averageUPS==0) ? updates:(updates + averageUPS) >> 1;
                 titleString = "ups: " + updates + " | fps: " + frames + " | average fps: " + averageFPS +
                         " | average ups: " + averageUPS;
                 //System.out.println(titleString);
@@ -89,10 +93,8 @@ public class Game extends Canvas implements Runnable {
      *  Also called 'tick', it is fixed throughout the game and does not
      *  depend on the PC configurations. For e.g. updating at 60 ticks per second */
     public void update() {
+        keyBoard.update();
         xOffset++;
-        if(xOffset % (random.nextInt(16) + 1) == 0) {
-            yOffset++;
-        }
     }
 
     /* Handles rendering of the images on the screen.
@@ -129,5 +131,6 @@ public class Game extends Canvas implements Runnable {
         game.jFrame.setLocationRelativeTo(null);
         game.jFrame.setVisible(true);
         game.start();
+        game.requestFocus();
     }
 }
