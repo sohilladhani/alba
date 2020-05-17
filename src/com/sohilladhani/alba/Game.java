@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 public class Game extends Canvas implements Runnable {
-    public static int width = 300;
+    public static int width = 320;
     public static int height = width / 16 * 9;
     public static int scale = 3;
     public static String title = "The Legend of Alba";
@@ -68,14 +68,11 @@ public class Game extends Canvas implements Runnable {
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                if(averageFPS != 0) averageFPS = (frames + averageFPS) >> 1;
-                else averageFPS = frames;
-                if(averageUPS != 0) averageUPS = (updates + averageUPS) >> 1;
-                else averageUPS = updates;
-                averageUPS = (updates + averageUPS) >> 1;
-                titleString = updates + " ups " + frames + " fps " + "average: " + averageFPS + " fps " +
-                        " average: " + averageUPS + " ups";
-                System.out.println(titleString);
+                averageFPS = (averageFPS == 0)? frames: (frames + averageFPS) >> 1;
+                averageUPS = (averageUPS == 0)? updates: (updates + averageUPS) >> 1;
+                titleString = "ups: " + updates + " | fps: " + frames + " | average fps: " + averageFPS +
+                        " | average ups: " + averageUPS;
+                //System.out.println(titleString);
                 jFrame.setTitle(title + " | " + titleString);
                 frames = 0;
                 updates = 0;
