@@ -45,10 +45,26 @@ public class Game extends Canvas implements Runnable {
 
     @Override
     public void run() {
+        long lastTime = System.nanoTime();
+        final double ns = 1_000_000_000.0 / 60.0;
+        double delta = 0;
+        boolean c = false;
         while (isRunning) {
-            update();
+            long now = System.nanoTime();
+            delta += (now - lastTime) / ns;
+            if (c) {
+                System.out.println("Time taken: " + (now - lastTime));
+                System.exit(0);
+            }
+            lastTime = now;
+            while (delta >= 1) {
+                update();
+                delta--;
+            }
             render();
+            c = true;
         }
+        stop();
     }
 
     /* Handles logic of the game, like keyboard input, etc.
@@ -85,7 +101,7 @@ public class Game extends Canvas implements Runnable {
     public static void main(String[] args) {
         Game game = new Game();
         game.jFrame.setResizable(false);
-        game.jFrame.setTitle("Alba");
+        game.jFrame.setTitle("The Legend of Alba");
         game.jFrame.add(game);
         game.jFrame.pack();
         game.jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
