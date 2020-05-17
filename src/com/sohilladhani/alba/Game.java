@@ -7,12 +7,14 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
     public static int width = 320;
     public static int height = width / 16 * 9;
     public static int scale = 3;
     public static String title = "The Legend of Alba";
+    private final Random random = new Random();
 
     private Thread thread;
     private boolean isRunning = false;
@@ -88,6 +90,9 @@ public class Game extends Canvas implements Runnable {
      *  depend on the PC configurations. For e.g. updating at 60 ticks per second */
     public void update() {
         xOffset++;
+        if(xOffset % (random.nextInt(16) + 1) == 0) {
+            yOffset++;
+        }
     }
 
     /* Handles rendering of the images on the screen.
