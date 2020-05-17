@@ -94,7 +94,15 @@ public class Game extends Canvas implements Runnable {
      *  depend on the PC configurations. For e.g. updating at 60 ticks per second */
     public void update() {
         keyBoard.update();
-        xOffset++;
+        if(keyBoard.right) {
+            xOffset++;
+        } else if(keyBoard.left) {
+            xOffset--;
+        } else if(keyBoard.up) {
+            yOffset--;
+        } else if(keyBoard.down) {
+            yOffset++;
+        }
     }
 
     /* Handles rendering of the images on the screen.
