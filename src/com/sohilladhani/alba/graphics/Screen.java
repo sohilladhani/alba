@@ -1,5 +1,7 @@
 package com.sohilladhani.alba.graphics;
 
+import com.sohilladhani.alba.tiles.Tile;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -35,6 +37,13 @@ public class Screen {
                         Sprite.grass.pixels[(x & Sprite.grass.SIZE_MASK) +
                                 (y & Sprite.grass.SIZE_MASK) * Sprite.grass.SIZE];
             }
+        }
+    }
+
+    public void renderTile(int xp, int yp, Tile tile) {
+        int
+        for(int y = 0; y < tile.sprite.SIZE; y++) {
+            int ya = y + yp;
         }
     }
 
